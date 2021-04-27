@@ -3,9 +3,9 @@ module noekeon_top
 	parameter BLOCK_SIZE=128,
 	parameter NROUND=16) (
   input mode, //-- crypto mode 0=enc, 1=dec
-  input [BLOCK_SIZE-1:0] plaintext, //-- 64-bit plaintext block
+  input [BLOCK_SIZE-1:0] plaintext, //-- 128-bit plaintext block
   input [KEY_SIZE-1:0] key, //-- 128-bit key
-  output wire [BLOCK_SIZE-1:0] ciphertext //-- 64-bit ciphered block
+  output wire [BLOCK_SIZE-1:0] ciphertext //-- 128-bit ciphered block
 );
 
 `include "functions.v"
@@ -35,8 +35,8 @@ assign k_in = {
 
 always @(*)
 	begin
-		rc1 = ~mode ? 8'h80 : 8'h00;
-		rc2 = ~mode ? 8'h00 : 8'hD4;
+	rc1 = ~mode ? 8'h80 : 8'h00;
+	rc2 = ~mode ? 8'h00 : 8'hD4;
 	end
 
 commonloop #( .KEY_SIZE(KEY_SIZE),
